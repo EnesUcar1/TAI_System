@@ -84,7 +84,7 @@
         <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
           <div class="card z-index-0">
             <div class="card-body">
-              <form role="form text-left" id="signUpForm">
+              <form role="form text-left" id="signUpForm" method="post">
                 <div class="mb-3">
                   <input type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="email-addon" name="Name" required>
                 </div>
@@ -97,6 +97,19 @@
                     I agree the <a href="javascript:;" class="text-dark font-weight-bolder">Terms and Conditions</a>
                   </label>
                 </div>
+
+                {{#if result.StatusTrue}}
+                <div class="alert alert-success" role="alert">
+                  {{{result.Message}}}
+                </div>
+                {{/if}}
+
+                {{#if result.StatusFalse}}
+                <div class="alert alert-warning" role="alert">
+                  {{{result.Message}}}
+                </div>
+                {{/if}}
+
                 <div class="text-center">
                   <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign up</button>
                 </div>
