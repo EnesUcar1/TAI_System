@@ -22,6 +22,26 @@ async function getAccountByName(name) {
   });
 }
 
+async function getAccountByNameAndPassword(name, password) {
+  return await new Promise((resolve, reject) => {
+    db.all('Select * From Accounts Where Name = "' + name + '" And Password = "' + helperConstant.createHash(password) + '"', (err, row) => {
+      return resolve(row);
+    });
+  }).then(value => {
+    return value;
+  });
+}
+
+async function getAccountByToken(accountToken) {
+  return await new Promise((resolve, reject) => {
+    db.all('Select * From Accounts Where Token = "' + accountToken + '"', (err, row) => {
+      return resolve(row);
+    });
+  }).then(value => {
+    return value;
+  });
+}
+
 async function addAccount(account) {
   let created = new Date().toLocaleString();
   let name = account.Name;
@@ -37,8 +57,27 @@ async function addAccount(account) {
   });
 }
 
+function isLogin(req, res, next) {
+  if (req.cookies.accountToken != null) {
+    next();
+  } else {
+    res.redirect("/sign-in");
+  }
+}
+
+async function getCurrentAccount(accountToken) {
+  if (!(cache.get('account_' + accountToken))) {
+    let account = await getAccountByToken(accountToken);
+    await cache.put('account_' + accountToken, account);
+  }
+  return await cache.get('account_' + accountToken)
+}
+
 module.exports = {
   getAccountByID,
   getAccountByName,
+  getAccountByNameAndPassword,
+  getCurrentAccount,
+  isLogin,
   addAccount
 };

@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser')
 const config = require('./config.json');
 let app = express();
 
+const dashboardRoutes = require('./routes/dashboardRoutes');
 const signInRoutes = require('./routes/signInRoutes');
 const signUpRoutes = require('./routes/signUpRoutes');
 
@@ -22,6 +23,7 @@ app.set('view engine', 'handlebars');
 app.use('/static', express.static(__dirname + '/public'));
 app.use(cookieParser());
 
+app.use('/', dashboardRoutes);
 app.use('/sign-in', signInRoutes);
 app.use('/sign-up', signUpRoutes);
 

@@ -64,6 +64,11 @@
             </a>
           </li>
         </ul>
+        <ul class="navbar-nav d-lg-block d-none">
+          <li class="nav-item">
+            <a href="javascript:;" class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1" onclick="smoothToPricing('pricing-soft-ui')">Buy Now</a>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
@@ -84,13 +89,26 @@
         <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
           <div class="card z-index-0">
             <div class="card-body">
-              <form role="form text-left" id="signInForm">
+              <form role="form text-left" id="signInForm" id="signUpForm" method="post">
                 <div class="mb-3">
                   <input type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="email-addon" name="Name" required>
                 </div>
                 <div class="mb-3">
                   <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon" name="Password"  pattern="^(?=.*[0-9])(?=.*[!@#$%^&.*_=+-]).{8,16}$" required>
                 </div>
+
+                {{#if result.StatusTrue}}
+                <div class="alert alert-success" role="alert">
+                  {{{result.Message}}}
+                </div>
+                {{/if}}
+
+                {{#if result.StatusFalse}}
+                <div class="alert alert-warning" role="alert">
+                  {{{result.Message}}}
+                </div>
+                {{/if}}
+
                 <div class="text-center">
                   <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign in</button>
                 </div>
