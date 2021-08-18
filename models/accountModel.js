@@ -1,3 +1,4 @@
+const cache = require('memory-cache');
 const helperConstant = require('../common/helpers/constant');
 const sqlite3 = require('sqlite3').verbose();
 let db = new sqlite3.Database('./database/tais.db');
