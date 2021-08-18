@@ -7,6 +7,10 @@ const config = require('./config.json');
 let app = express();
 
 const dashboardRoutes = require('./routes/dashboardRoutes');
+const userRoutes = require('./routes/userRoutes');
+const cheeseCounterRoutes = require('./routes/cheeseCounterRoutes');
+const furRoutes = require('./routes/furRoutes');
+const rewardRoutes = require('./routes/rewardRoutes');
 const signInRoutes = require('./routes/signInRoutes');
 const signUpRoutes = require('./routes/signUpRoutes');
 
@@ -24,6 +28,10 @@ app.use('/static', express.static(__dirname + '/public'));
 app.use(cookieParser());
 
 app.use('/', dashboardRoutes);
+app.use('/users', userRoutes);
+app.use('/cheese-counters', cheeseCounterRoutes);
+app.use('/furs', furRoutes);
+app.use('/rewards', rewardRoutes);
 app.use('/sign-in', signInRoutes);
 app.use('/sign-up', signUpRoutes);
 
