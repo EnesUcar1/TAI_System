@@ -17,24 +17,10 @@ $(document).on("click", ".button-add-user", function(e) {
     type: "post",
     data: userData
   }).done(function(result) {
-    console.log(result);
+    $(".button-add-user-close").click();
   });
 });
 
-$('body').delegate('.submit-button-delete', 'click', function() {
-  let userID = $(this).data("userId");
-  $.ajax({
-    url: "/accounts/delete-account",
-    type: "post",
-    data: {
-      "ID": userID
-    }
-  }).done(function(result) {
-    $("tr[data-user-id-tr='" + userID + "']").remove();
-    dataNothing();
-  });
-});
-
-$('#userName-add').on('input', function() {
-  $(".modal-title-add").html($("#userName-add").val());
+$(document).on("click", ".button-delete-user", function(e) {
+  console.log(this);
 });
