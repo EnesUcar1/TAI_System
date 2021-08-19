@@ -5,7 +5,7 @@ const user_index = async (req, res) => {
   if (Array.isArray(account)) {
     account = account[0]
   }
-  res.render(__dirname + '/../views/home/user.handlebars', {userLeftSideClass: 'active', pageName: "Users", account: account});
+  res.render(__dirname + '/../views/home/user.handlebars', { userLeftSideClass: 'active', pageName: "Users", account: account });
 };
 
 module.exports = {

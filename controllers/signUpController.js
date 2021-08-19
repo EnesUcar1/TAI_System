@@ -22,7 +22,7 @@ const sign_up_add_user = async (req, res) => {
     result.StatusFalse = true;
   }
 
-  res.render(__dirname + '/../views/home/sign-up.handlebars', {layout: false, result: result});
+  res.render(__dirname + '/../views/home/sign-up.handlebars', { layout: false, result: result });
 };
 
 module.exports = {

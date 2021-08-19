@@ -6,7 +6,7 @@ const dashboard_index = async (req, res) => {
   if (Array.isArray(account)) {
     account = account[0]
   }
-  res.render(__dirname + '/../views/home/dashboard.handlebars', {dashboardLeftSideClass: 'active', pageName:"Dashboard", account: account});
+  res.render(__dirname + '/../views/home/dashboard.handlebars', { dashboardLeftSideClass: 'active', pageName:"Dashboard", account: account });
 };
 
 const dashboard_logout = (req, res) => {
