@@ -22,6 +22,7 @@
                 </tr>
               </thead>
               <tbody>
+                {{#each users}}
                 <tr>
                   <td>
                     <div class="d-flex px-2 py-1">
@@ -29,8 +30,8 @@
                         <img src="/static/assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
                       </div>
                       <div class="d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 text-sm">Enesxfb1#0000</h6>
-                        <p class="text-xs text-secondary mb-0">enesucar2@outlook.com</p>
+                        <h6 class="mb-0 text-sm">{{this.Name}}</h6>
+                        <p class="text-xs text-secondary mb-0">{{this.Email}}</p>
                       </div>
                     </div>
                   </td>
@@ -39,10 +40,10 @@
                     <p class="text-xs text-secondary mb-0">Cheeser</p>
                   </td>
                   <td class="align-middle text-center text-sm">
-                    <span class="badge badge-sm bg-gradient-success">200</span>
+                    <span class="badge badge-sm bg-gradient-success">{{this.Cheese}}</span>
                   </td>
                   <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">23.04.2018</span>
+                    <span class="text-secondary text-xs font-weight-bold">{{this.Date}}</span>
                   </td>
                   <td class="align-middle">
                     <a href="javascript:;" class="button-edit text-secondary font-weight-bold text-xs" data-bs-toggle="modal" data-bs-target="#edit-user" data-toggle="tooltip" data-original-title="Edit user">
@@ -54,6 +55,7 @@
                     </a>
                   </td>
                 </tr>
+                {{/each}}
               </tbody>
             </table>
           </div>
@@ -92,7 +94,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn bg-gradient-success">Submit</button>
+        <button type="button" class="btn button-add-user bg-gradient-success">Submit</button>
       </div>
     </div>
   </div>
@@ -135,3 +137,5 @@
   </div>
 </div>
 <!-- Modal Add End -->
+
+<script src="/static/assets/js/user.js"></script>

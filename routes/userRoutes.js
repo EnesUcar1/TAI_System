@@ -8,5 +8,6 @@ var urlencodedParser = bodyParser.urlencoded({ extended: true  });
 router.use(bodyParser.json());
 
 router.get('/', accountModel.isLogin, userController.user_index);
+router.post('/', [accountModel.isLogin, urlencodedParser], userController.user_add);
 
 module.exports = router;
