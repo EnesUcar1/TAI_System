@@ -22,5 +22,13 @@ $(document).on("click", ".button-add-user", function(e) {
 });
 
 $(document).on("click", ".button-delete-user", function(e) {
-  console.log(this);
+  var ID = $(this).data("id");
+  let _this = this;
+  $.ajax({
+    url: "/users",
+    type: "delete",
+    data: {"ID": ID}
+  }).done(function(result) {
+    $(_this).parent().parent().remove();
+  });
 });

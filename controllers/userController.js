@@ -20,7 +20,14 @@ const user_add = async (req, res) => {
   return res.send(result).end();
 };
 
+const user_delete = async (req, res) => {
+  let result = await userModel.deleteUser(req.body.ID);
+  return res.send(result).end();
+};
+
+
 module.exports = {
   user_index,
-  user_add
+  user_add,
+  user_delete
 };

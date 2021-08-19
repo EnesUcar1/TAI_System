@@ -5,7 +5,7 @@ let db = new sqlite3.Database('./database/tais.db');
 
 async function getUsersByAccountID(accountID) {
   return await new Promise((resolve, reject) => {
-    db.all('Select * From Users Where AccountID = "' + accountID + '"', (err, row) => {
+    db.all('Select * From Users Where AccountID = "' + accountID + '" And Deleted = 0', (err, row) => {
       return resolve(row);
     });
   }).then(async (value) => {
@@ -42,8 +42,20 @@ async function addUser(user) {
   });
 }
 
+function deleteUser(ID) {
+  let deleted = 1;
+  return new Promise((resolve, reject) => {
+    db.run("Update Users Set Deleted = '" + deleted + "' Where ID = '" + ID + "'", (err, row) => {
+      return resolve();
+    });
+  }).then(value => {
+    return true;
+  });
+}
+
 module.exports = {
   getUsersByAccountID,
   getUserByName,
-  addUser
+  addUser,
+  deleteUser
 };
