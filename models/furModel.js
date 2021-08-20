@@ -26,7 +26,7 @@ function addFavouriteFur(fur) {
 
 function deleteFavouriteFur(favouriteFurID) {
   return new Promise((resolve, reject) => {
-    db.run("Update FavouriteFurs Set Deleted = 1 Where ID = '" + furID + "'", (err, row) => {
+    db.run("Update FavouriteFurs Set Deleted = 1 Where ID = '" + favouriteFurID + "'", (err, row) => {
       return resolve(row);
     });
   }).then(value => {
@@ -34,14 +34,22 @@ function deleteFavouriteFur(favouriteFurID) {
   });
 }
 
-//function getSumFurCheese(userID) {
-  //return new Promise((resolve, reject) => {
-    //db.all('Select Sum(Cheese) From Furs Where UserID ="' + userID + '" And Deleted = "0"', (err, row) => { return resolve(row); });
-  //}).then(async (value) => { return value; });
-//}
+function getSumFurCheese(accountID, priority = null) {
+  if (priority == null)
+  {
+    return new Promise((resolve, reject) => {
+      db.all('Select Sum(Cheese) From FavouriteFurs Where AccountID ="' + accountID + '" And Deleted = "0"', (err, row) => { return resolve(row); });
+    }).then(async (value) => { return value; });
+  } else {
+    return new Promise((resolve, reject) => {
+      db.all('Select Sum(Cheese) From FavouriteFurs Where AccountID ="' + accountID + '" And Priority = "' + priority +  '" And Deleted = "0"', (err, row) => { return resolve(row); });
+    }).then(async (value) => { return value; });
+  }
+}
 
 module.exports = {
   getFavouriteFurs,
   addFavouriteFur,
-  deleteFavouriteFur
+  deleteFavouriteFur,
+  getSumFurCheese
 };
