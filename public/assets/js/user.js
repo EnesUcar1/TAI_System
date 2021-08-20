@@ -20,12 +20,13 @@ let randomImage = null;
 
 function addAvatarImage() {
   var images = [
-    'https://cdn.contactcenterworld.com/images/user-master/2020-8-27-18221151.png',
-    'https://www.onattercume.com/wp-content/uploads/2018/02/orta-yas.png',
-    'https://www.tcsohbet.net/wp-content/uploads/2020/05/person4.png',
-    'https://haticekocak.com/assets/front/img/testimonials/1606436367.png',
-    'https://evdeneveasansorlunakliyat.com/trex/assets/img/yorumlar/2897524865.jpg',
-    'https://tedarikciportal.sutas.com.tr/_nuxt/img/avatar.2918610.png'
+    '/static/assets/img/users/user1.png',
+    '/static/assets/img/users/user2.png',
+    '/static/assets/img/users/user3.png',
+    '/static/assets/img/users/user4.png',
+    '/static/assets/img/users/user5.jpg',
+    '/static/assets/img/users/user6.png',
+    '/static/assets/img/users/user7.png'
   ];
 
   randomImage = images[Math.floor(Math.random() * images.length)];
