@@ -37,8 +37,23 @@ async function addUser(user) {
       (err) ? resolve(false): resolve(true);
     });
   }).then(async (value) => {
-    var data = await getUserByName(name);
+    var data = await helperConstant.setUsersDateTime(await getUserByName(name));
     return data;
+  });
+}
+
+function updateUser(user) {
+  let id = user.ID;
+  let name = user.Name;
+  let email = user.Email
+  let cheese = user.Cheese;
+
+  return new Promise((resolve, reject) => {
+    db.run("Update Users Set Name = '" + name + "' ,Email = '" + email + "' ,Cheese = '" + cheese + "' Where ID = '" + id + "'", (err, row) => {
+      return resolve();
+    });
+  }).then(value => {
+    return true;
   });
 }
 
@@ -57,5 +72,6 @@ module.exports = {
   getUsersByAccountID,
   getUserByName,
   addUser,
+  updateUser,
   deleteUser
 };

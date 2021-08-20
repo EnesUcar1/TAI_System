@@ -9,6 +9,7 @@ router.use(bodyParser.json());
 
 router.get('/', accountModel.isLogin, userController.user_index);
 router.post('/', [accountModel.isLogin, urlencodedParser], userController.user_add);
+router.put('/', [accountModel.isLogin, urlencodedParser], userController.user_update);
 router.delete('/', [accountModel.isLogin, urlencodedParser], userController.user_delete);
 
 module.exports = router;

@@ -17,6 +17,11 @@ const user_add = async (req, res) => {
   }
   req.body.AccountID = account.ID;
   let result = await userModel.addUser(req.body);
+  return res.send(result[0]).end();
+};
+
+const user_update = async (req, res) => {
+  let result = await userModel.updateUser(req.body);
   return res.send(result).end();
 };
 
@@ -29,5 +34,6 @@ const user_delete = async (req, res) => {
 module.exports = {
   user_index,
   user_add,
+  user_update,
   user_delete
 };

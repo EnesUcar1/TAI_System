@@ -7,6 +7,10 @@
             <a class="btn-link text-dark px-2 mb-0" href="javascript:;" data-bs-toggle="modal" data-bs-target="#add-user" data-toggle="tooltip" data-original-title="Add User">
               <i class="fas fa-plus-circle text-sm" aria-hidden="true"></i>
             </a>
+
+            <!-- <a class="btn-link text-dark px-0 mb-0" href="javascript:;"  data-bs-toggle="modal" data-bs-target="#add-user" data-toggle="tooltip" data-original-title="Add User">
+               <i class="fas fa-cogs text-sm" aria-hidden="true"></i> <!-->
+            </a>
           </h6>
         </div>
         <div class="card-body px-0 pt-0 pb-2">
@@ -21,13 +25,13 @@
                   <th class="text-secondary opacity-7"></th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="tbody-users">
                 {{#each users}}
-                <tr>
+                <tr data-row-id="{{this.ID}}">
                   <td>
                     <div class="d-flex px-2 py-1">
                       <div>
-                        <img src="/static/assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
+                        <img src="https://yazhocam.com/wp-content/uploads/2018/02/Beyaz-Arkaplan.jpg" class="avatar avatar-sm me-3" alt="user1">
                       </div>
                       <div class="d-flex flex-column justify-content-center">
                         <h6 class="mb-0 text-sm">{{this.Name}}</h6>
@@ -40,13 +44,13 @@
                     <p class="text-xs text-secondary mb-0">Cheeser</p>
                   </td>
                   <td class="align-middle text-center text-sm">
-                    <span class="badge badge-sm bg-gradient-success">{{this.Cheese}}</span>
+                    <span class="badge badge-sm">{{this.Cheese}}</span>
                   </td>
                   <td class="align-middle text-center">
                     <span class="text-secondary text-xs font-weight-bold">{{this.Date}}</span>
                   </td>
                   <td class="align-middle">
-                    <a href="javascript:;" class="button-edit text-secondary font-weight-bold text-xs" data-bs-toggle="modal" data-bs-target="#edit-user" data-toggle="tooltip" data-original-title="Edit user">
+                    <a href="javascript:;" class="icon-edit-user text-secondary font-weight-bold text-xs" data-bs-toggle="modal" data-bs-target="#edit-user" data-toggle="tooltip" data-original-title="Edit user">
                       <i class="fas fa-edit" aria-hidden="true"></i>
                     </a>
 
@@ -74,21 +78,19 @@
       </div>
       <div class="modal-body">
         <div id="accountForm">
-          <input type="hidden" id="userID-edit" name="ID" value="170">
-
           <div class="form-group" style="width:41%; float:left">
             <label for="userName">Name</label>
-            <input type="text" class="form-control" id="name-add" name="Name" autocomplete="off" required="">
+            <input type="text" class="form-control" id="name-add" name="Name" required="">
           </div>
 
           <div class="form-group" style="width:41%; float:left; margin-left:2%">
             <label for="userEmail">Email</label>
-            <input type="email" class="form-control" id="email-add" name="Email" autocomplete="off" required="">
+            <input type="email" class="form-control" id="email-add" name="Email" required="">
           </div>
 
           <div class="form-group" style="width:14%; float:left; margin-left:2% ">
             <label for="userCheese">Cheese</label>
-            <input type="text" class="form-control" min="0" max="200" id="cheeese-add" autocomplete="off" required="">
+            <input type="text" class="form-control" min="0" max="200" id="cheeese-add" required="">
           </div>
         </div>
       </div>
@@ -111,27 +113,27 @@
       </div>
       <div class="modal-body">
         <div id="accountForm">
-          <input type="hidden" id="userID-edit" name="ID">
+          <input type="hidden" id="ID-edit" name="ID">
 
           <div class="form-group" style="width:41%; float:left">
             <label for="userName">Name</label>
-            <input type="text" class="form-control" id="name-edit" name="Name" autocomplete="off" required="">
+            <input type="text" class="form-control" id="name-edit" name="Name" required="">
           </div>
 
           <div class="form-group" style="width:41%; float:left; margin-left:2%">
             <label for="userEmail">Email</label>
-            <input type="email" class="form-control" id="email-edit" name="Email" autocomplete="off" required="">
+            <input type="email" class="form-control" id="email-edit" name="Email" required="">
           </div>
 
           <div class="form-group" style="width:14%; float:left; margin-left:2% ">
             <label for="userCheese">Cheese</label>
-            <input type="text" class="form-control" min="0" max="200" id="cheeese-edit" autocomplete="off" required="">
+            <input type="text" class="form-control" min="0" max="200" id="cheese-edit" required="">
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn bg-gradient-success">Save Changes</button>
+        <button type="button" class="btn button-edit-user-close bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn button-edit-user bg-gradient-success">Save Changes</button>
       </div>
     </div>
   </div>
