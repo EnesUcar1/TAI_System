@@ -1,7 +1,7 @@
 <div class="container-fluid py-4">
   <div class="row">
-    <div class="col-md-12 mt-4">
-      <div class="card">
+    <div class="col-12">
+      <div class="card mb-4">
         <div class="card-header pb-0">
           <h6 class="">Favourite Furs List
             <td class="align-middle">
@@ -24,7 +24,7 @@
                   <span class="mb-2 text-xs">Öncelik: <span class="text-dark font-weight-bold ms-sm-2">{{this.Priority}}</span></span>
                 </div>
                 <div class="ms-auto text-end">
-                  <img style="position: absolute; right: 60px; bottom: 20px; " src="{{this.Link}}" ondblclick="window.location='/favourite-furs/delete-fur?ID={{this.ID}}'" >
+                  <img style="position: absolute; right: 60px; bottom: 20px; " src="{{this.Link}}" ondblclick="window.location='/favourite-furs/delete-fur?ID={{this.ID}}'">
                   <img style="position: absolute; right: 10px; bottom: 20px;" src="{{this.BadgeLink}}">
                 </div>
               </li>
@@ -67,7 +67,7 @@
                 <label for="Priority">Priority</label>
                 <select class="form-control" id="Priority" name="Priority" required>
                   <option disabled selected value>Select one...</option>
-                  <option >1</option>
+                  <option>1</option>
                   <option>2</option>
                   <option>3</option>
                   <option>4</option>
@@ -83,40 +83,50 @@
         </div>
       </div>
     </div>
-
-    <!-- Modal Edit -->
-    <div class="modal fade" id="info-fur" tabindex="-1" role="dialog">
-      <div class="modal-dialog modal-dialog-top" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Favourite Furs Informations</h5>
-          </div>
-          <div class="modal-body">
-            <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">Total cheese of furs (Priority = 5):</span> <span class=" mb-2 text-xs" style="font-size:13px; margin-left: 2px">{{furCheese.TotalFivep}}</span><br>
-            <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">Total cheese of furs (Priority = 4):</span> <span class=" mb-2 text-xs" style="font-size:13px; margin-left: 2px">{{furCheese.TotalFourp}}</span><br>
-            <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">Total cheese of furs (Priority = 3):</span> <span class=" mb-2 text-xs" style="font-size:13px; margin-left: 2px">{{furCheese.TotalThreep}}</span><br>
-            <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">Total cheese of furs (Priority = 2):</span> <span class=" mb-2 text-xs" style="font-size:13px; margin-left: 2px">{{furCheese.TotalTwop}}</span><br>
-            <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">Total cheese of furs (Priority = 1):</span> <span class=" mb-2 text-xs" style="font-size:13px; margin-left: 2px">{{furCheese.TotalOnep}}</span><br>
-            <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">Total cheese of furs:</span> <span class=" mb-2 text-xs" style="font-size:13px; margin-left: 2px"><b>{{furCheese.Total}}</b></span>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-          </div>
-        </div>
+  </div>
+</div>
+<!-- Modal Edit -->
+<div class="modal fade" id="info-fur" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-top" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Favourite Furs Informations</h5>
+      </div>
+      <div class="modal-body">
+        <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">Total cheese of furs (Priority = 5):</span> <span class=" mb-2 text-xs" style="font-size:13px; margin-left: 2px">{{furCheese.TotalFivep}}</span><br>
+        <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">Total cheese of furs (Priority = 4):</span> <span class=" mb-2 text-xs" style="font-size:13px; margin-left: 2px">{{furCheese.TotalFourp}}</span><br>
+        <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">Total cheese of furs (Priority = 3):</span> <span class=" mb-2 text-xs" style="font-size:13px; margin-left: 2px">{{furCheese.TotalThreep}}</span><br>
+        <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">Total cheese of furs (Priority = 2):</span> <span class=" mb-2 text-xs" style="font-size:13px; margin-left: 2px">{{furCheese.TotalTwop}}</span><br>
+        <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">Total cheese of furs (Priority = 1):</span> <span class=" mb-2 text-xs" style="font-size:13px; margin-left: 2px">{{furCheese.TotalOnep}}</span><br>
+        <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">Total cheese of furs:</span> <span class=" mb-2 text-xs" style="font-size:13px; margin-left: 2px"><b>{{furCheese.Total}}</b></span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
-    <style>
-      .list-group-item {
-        margin-top: 5px
-      }
+  </div>
+</div>
+<style>
+  .list-group-item:nth-child(n+3) {
+    margin-top: 15px
+  }
 
-      .list-group-item:nth-child(3n - 1) {
-        margin-left: 5%;
-      }
+  .list-group-item:nth-child(1) {
+    margin-top: -15px
+  }
+  .list-group-item:nth-child(2) {
+    margin-top: -15px
+  }
+  .list-group-item:nth-child(3) {
+    margin-top: -15px
+  }
+  .list-group-item:nth-child(3n - 1) {
+    margin-left: 5%;
+  }
 
-      .list-group-item:nth-child(3n) {
-        margin-left: 5%;
-      }
-    </style>
+  .list-group-item:nth-child(3n) {
+    margin-left: 5%;
+  }
+</style>
 
-    <script src="/static/assets/js/fur.js"></script>
+<script src="/static/assets/js/fur.js"></script>
