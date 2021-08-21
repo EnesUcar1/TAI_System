@@ -8,5 +8,6 @@ var urlencodedParser = bodyParser.urlencoded({ extended: true  });
 router.use(bodyParser.json());
 
 router.get('/', accountModel.isLogin, cheeseCounterController.cheeseCounter_index);
+router.post('/', [accountModel.isLogin, urlencodedParser], cheeseCounterController.cheeseCounter_add);
 
 module.exports = router;

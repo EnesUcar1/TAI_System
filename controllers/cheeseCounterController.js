@@ -8,6 +8,11 @@ const cheeseCounter_index = async (req, res) => {
   res.render(__dirname + '/../views/home/cheese-counter.handlebars', { cheeseCounterLeftSideClass: 'active', pageName: "Cheese Counters", account: account });
 };
 
+const cheeseCounter_add = async (req, res) => {
+  console.log(req.body)
+};
+
 module.exports = {
-  cheeseCounter_index
+  cheeseCounter_index,
+  cheeseCounter_add
 };
