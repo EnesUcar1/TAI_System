@@ -9,6 +9,11 @@ const cheeseCounter_index = async (req, res) => {
 };
 
 const cheeseCounter_add = async (req, res) => {
+  let account = await accountModel.getCurrentAccount(req.cookies.accountToken);
+  if (Array.isArray(account)) {
+    account = account[0]
+  }
+  req.body.AccountID = account.ID;
   console.log(req.body)
 };
 
