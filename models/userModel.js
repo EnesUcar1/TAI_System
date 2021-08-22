@@ -24,6 +24,47 @@ function getUserByName(name) {
   });
 }
 
+async function getUsersSumCheese(accountID) {
+  let users = await getUsersByAccountID(accountID);
+  let totalCheese = 0;
+
+  return new Promise(async (resolve, reject) => {
+    let totalCheese = 0;
+    let i = 0;
+    await users.forEach((user) => {
+      totalCheese += user.Cheese;
+      ++i;
+      if (i == users.length)
+        resolve(totalCheese);
+    });
+    if(users.length == 0)
+      resolve(totalCheese)
+  }).then(value => {
+    return value;
+  });
+}
+
+async function getFullCheeseUserCount(accountID) {
+  let users = await getUsersByAccountID(accountID);
+  return new Promise(async (resolve, reject) => {
+    let totalFullCheese = 0;
+    let i = 0;
+    await users.forEach((user) => {
+      if (user.Cheese == 200)
+        totalFullCheese += 1;
+        i++;
+      if(i == users.length) {
+        resolve(totalFullCheese)
+      }
+    });
+    if(users.length == 0) {
+      resolve(totalFullCheese)
+    }
+  }).then(value => {
+    return value;
+  });
+}
+
 async function addUser(user) {
   let created = new Date().toLocaleString();
   let accountID = user.AccountID;
@@ -71,6 +112,8 @@ function deleteUser(ID) {
 module.exports = {
   getUsersByAccountID,
   getUserByName,
+  getUsersSumCheese,
+  getFullCheeseUserCount,
   addUser,
   updateUser,
   deleteUser

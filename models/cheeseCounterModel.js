@@ -1,4 +1,5 @@
 const helperConstant = require('../common/helpers/constant');
+const cheeseUserModel = require('./counterUsersModel.js');
 const sqlite3 = require('sqlite3').verbose();
 let db = new sqlite3.Database('./database/tais.db');
 
@@ -35,19 +36,60 @@ async function addCounter(counter) {
   let useSideUsers = 0; // 0: hayır, 1: evet
   let deleted = 0;
 
-  if (counter.UseSideUsers == on) {
+  if (counter.UseSideUsers == "on") {
     useSideUsers = 1
   }
 
   return new Promise((resolve, reject) => {
-    db.run("INSERT INTO CheeseCounter (Created, StartingDate, AccountID, Name, MarketCheese, StartingMarketCheese, SpentCheese, TargetCheese, Status, UseSideUsers, Deleted) VALUES ('" + created + "', '" + startingDate + "', '" + accountID + "', '" + name + "', '" + marketCheese + "', '" + startingMarketCheese + "', '" + spentCheese + "', '" + targetCheese + "', '" + status + "', '" + useSideUsers + "', '" +  deleted + "');", (err, row) => {
-      (err) ? resolve(false) : resolve(true);
+    db.run("INSERT INTO CheeseCounters (Created, StartingDate, AccountID, Name, MarketCheese, StartingMarketCheese, SpentCheese, TargetCheese, Status, UseSideUsers, Deleted) VALUES ('" + created + "', '" + startingDate + "', '" + accountID + "', '" + name + "', '" + marketCheese + "', '" + startingMarketCheese + "', '" + spentCheese + "', '" + targetCheese + "', '" + status + "', '" + useSideUsers + "', '" +  deleted + "');", function(err) {
+      resolve(this)
     });
   }).then(async (value) => {
-    return value;
+    if (useSideUsers == 0 && counter.CounterUsers) {
+      let counterUserData = {
+        "CounterUsers": counter.CounterUsers,
+        "CounterID": value.lastID,
+      };
+      await cheeseUserModel.addCounterUsers(counterUserData);
+      return true;
+    }
+  });
+}
+
+function updateCounter(counter) {
+  let id = counter.ID;
+  let name = counter.Name;
+  let startingDate = counter.StartingDate;
+  let startingMarketCheese = counter.StartingMarketCheese;
+  let marketCheese = counter.MarketCheese;
+  let spentCheese = counter.SpentCheese;
+  let targetCheese = counter.TargetCheese;
+  console.log(counter)
+
+  return new Promise((resolve, reject) => {
+    db.run("Update CheeseCounters Set Name = '" + name + "' ,StartingDate = '" + startingDate + "' ,startingMarketCheese = '" + startingMarketCheese + "', MarketCheese ='" + marketCheese + "', SpentCheese='" + spentCheese + "', TargetCheese='" + targetCheese + "' Where ID = '" + id + "'", (err, row) => {
+      return resolve(row);
+    });
+  }).then(value => {
+    return true;
+  });
+}
+
+function deleteCounter(counterID) {
+  let deleted = 1;
+  return new Promise((resolve, reject) => {
+    db.run("Update CheeseCounters Set Deleted = '" + deleted + "' Where ID = '" + counterID + "'", (err, row) => {
+      return resolve();
+    });
+  }).then(value => {
+    return true;
   });
 }
 
 module.exports = {
-
+  getCounterByID,
+  getCounterByAccountID,
+  addCounter,
+  updateCounter,
+  deleteCounter
 };

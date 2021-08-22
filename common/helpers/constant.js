@@ -21,8 +21,24 @@ function setUsersDateTime(users) {
   }).then(value => { return value; });
 }
 
+function getDiffDays(date, secondDate = null) {
+  let date1 = new Date(date);
+  let date2 = null;
+
+  if (secondDate == null) {
+    date2 = new Date();
+  } else {
+    date2 = new Date(secondDate);
+  }
+
+  let diffTime = Math.abs(date2 - date1);
+  let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return diffDays;
+}
+
 module.exports = {
   createHash,
   createToken,
-  setUsersDateTime
+  setUsersDateTime,
+  getDiffDays
 }

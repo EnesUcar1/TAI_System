@@ -16,28 +16,33 @@
         </div>
         <div class="card-body pt-4 p-3">
           <ul class="list-group">
-            <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+            {{#each cheeseCounters}}
+            <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg" data-row-id="{{this.ID}}">
               <div class="d-flex flex-column">
-                <h6 class="mb-3 text-sm">Balık Etkinliği <span class="mb-2 text-xs"><span class="text-dark font-weight-bold ms-sm-2">(23.08.2021 - 14.09.2021)</span></span></h6>
-                <span class="mb-2 text-xs">Kazanılan Peynir: <span class="text-dark font-weight-bold ms-sm-2">45000</span></span>
-                <span class="mb-2 text-xs">Hedef Peynir Yüzdesi: <span class="text-dark font-weight-bold ms-sm-2">%57.54</span></span>
-                <span class="mb-2 text-xs">Yan Hesaplardaki Peynir: <span class="text-dark ms-sm-2 font-weight-bold">48058</span></span><br>
-                <span class="mb-2 text-xs">Günlük Ortalama Toplanan Peynir: <span class="text-dark ms-sm-2 font-weight-bold">2147.44</span></span>
-                <span class="mb-2 text-xs">Maksimum Peynirli Hesap Sayısı: <span class="text-dark ms-sm-2 font-weight-bold">77</span></span><br>
-                <span class="mb-2 text-xs">Marketteki Tahmini Peynir: <span class="text-dark ms-sm-2 font-weight-bold">69489</span></span>
-                <span class="mb-2 text-xs">Kürklere Kalan Peynir: <span class="text-dark ms-sm-2 font-weight-bold">54899</span></span>
+                <h6 class="mb-3 text-sm"><span>{{this.Name}}</span> <span class="mb-2 text-xs"><span class="text-dark font-weight-bold ms-sm-2">({{this.StartingDate}})</span></span></h6>
+                <span class="mb-2 text-xs">Won Cheese: <span class="text-dark font-weight-bold ms-sm-2">{{this.TotalCheese}}</span></span>
+                <span style="display:none">{{this.StartingMarketCheese}}</span>
+                <span style="display:none">{{this.MarketCheese}}</span>
+                <span style="display:none">{{this.SpentCheese}}</span>
+                <span style="display:none">{{this.TargetCheese}}</span>
+                <span class="mb-2 text-xs">Target Cheese Percentage: <span class="text-dark font-weight-bold ms-sm-2">%{{this.TargetCheesePercentage}}</span></span>
+                <span class="mb-2 text-xs">Side Users Cheese: <span class="text-dark ms-sm-2 font-weight-bold">{{this.UsersSumCheese}}</span></span><br>
+                <span class="mb-2 text-xs">Average Cheese Earned Per Day: <span class="text-dark ms-sm-2 font-weight-bold">{{this.AverageCheese}}</span></span>
+                <span class="mb-2 text-xs">Maximum Number Cheese Accounts: <span class="text-dark ms-sm-2 font-weight-bold">{{this.FullCheeseCount}}</span></span><br>
+                <span class="mb-2 text-xs">Estimated Cheese At The Market: <span class="text-dark ms-sm-2 font-weight-bold">{{this.EstimatedCheese}}</span></span>
+                <span class="mb-2 text-xs">Remaining Cheese For Furs: <span class="text-dark ms-sm-2 font-weight-bold">{{this.FursCheeseRemainder}}</span></span>
               </div>
               <div class="ms-auto text-end">
-                <a class="btn btn-link text-dark px-3 mb-0 button-edit" data-id="{{this.ID}}" data-TargetCheese="{{this.TargetCheese}}" data-SpentCheese="{{this.SpentCheese}}" data-MarketCheese="{{this.MarketCheese}}"
-                  data-StartingCheese="{{this.StartingCheese}}" data-StartingDate="{{this.StartingDate}}" data-name="{{this.Name}}" data-bs-toggle="modal" data-bs-target="#edit-counter" data-toggle="tooltip" data-original-title="Edit count"
-                  href="javascript:;"><i class="fas fa-pencil-alt tex dark me-2" aria-hidden="true"></i>Düzenle</a>
+                <a class="btn btn-link text-dark px-3 mb-0 icon-edit-counter" data-bs-toggle="modal" data-bs-target="#edit-counter" data-toggle="tooltip" data-original-title="Edit count"
+                  href="javascript:;"><i class="fas fa-pencil-alt tex dark me-2" aria-hidden="true"></i>Edit</a>
 
-                <form style="float:left" id="counter-delete-form-{{this.ID}}" action="/cheese-counter/delete-counter" method="post">
-                  <a onclick="document.getElementById('counter-delete-form-{{this.ID}}').submit();" class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Sil</a>
+                <form style="float:left" id="counter-delete-form-{{this.ID}}" action="/cheese-counters/delete-counter" method="post">
+                  <a onclick="document.getElementById('counter-delete-form-{{this.ID}}').submit();" class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Delete</a>
                   <input type="hidden" name="ID" value={{this.ID}}>
                 </form>
               </div>
             </li>
+            {{/each}}
           </ul>
         </div>
       </div>
@@ -85,14 +90,12 @@
               <div id="br">
                 <br><br><br><br><br><br><br>
               </div>
-              <div class="form-group" id="counterAccounts">
-                <label for="CounterAccounts">Side-Accounts</label>
-                <select multiple class="form-control" name="CounterAccounts">
-                  <option value="1">dene1</option>
-                  <option value="2">dene2</option>
-                  <option value="3">dene3</option>
-                  <option value="4">dene4</option>
-                  <option value="5">dene5</option>
+              <div class="form-group" id="counterUsers">
+                <label for="CounterUsers">Side-Accounts</label>
+                <select multiple class="form-control" name="CounterUsers"  style="height: 140px">
+                  {{#each users}}
+                    <option value={{this.ID}}>{{this.Name}}</option>
+                  {{/each}}
                 </select>
               </div>
 
@@ -114,49 +117,85 @@
   </div>
 </div>
 <!-- Modal Edit -->
-<div class="modal fade" id="info-fur" tabindex="-1" role="dialog">
+
+<!-- Modal Add -->
+<div class="modal fade" id="edit-counter" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-top" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Favourite Furs Informations</h5>
+        <h5 class="modal-title">Edit Cheese Counter</h5>
       </div>
-      <div class="modal-body">
-        <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">Total cheese of furs (Priority = 5):</span> <span class=" mb-2 text-xs" style="font-size:13px; margin-left: 2px">{{furCheese.TotalFivep}}</span><br>
-        <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">Total cheese of furs (Priority = 4):</span> <span class=" mb-2 text-xs" style="font-size:13px; margin-left: 2px">{{furCheese.TotalFourp}}</span><br>
-        <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">Total cheese of furs (Priority = 3):</span> <span class=" mb-2 text-xs" style="font-size:13px; margin-left: 2px">{{furCheese.TotalThreep}}</span><br>
-        <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">Total cheese of furs (Priority = 2):</span> <span class=" mb-2 text-xs" style="font-size:13px; margin-left: 2px">{{furCheese.TotalTwop}}</span><br>
-        <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">Total cheese of furs (Priority = 1):</span> <span class=" mb-2 text-xs" style="font-size:13px; margin-left: 2px">{{furCheese.TotalOnep}}</span><br>
-        <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">Total cheese of furs:</span> <span class=" mb-2 text-xs" style="font-size:13px; margin-left: 2px"><b>{{furCheese.Total}}</b></span>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
+      <form action="/cheese-counters" method="put">
+        <div class="modal-body">
+          <input type="hidden" id="counterID-edit" name="ID" />
+          <div class="form-group" style="width:30%;  float:left">
+            <label for="Name">Name</label>
+            <input type="text" class="form-control" name="Name" autocomplete="off" required>
+          </div>
+
+          <div class="form-group" style="width:30%; margin-left:5%; float:left">
+            <label for="StartingDate">Starting Date</label>
+            <input type="text" class="form-control" name="StartingDate" autocomplete="off" required>
+          </div>
+
+          <div class="form-group" style="width:30%; margin-left:5%; float:left">
+            <label for="StartingMarketCheese">Starting Cheese</label>
+            <input type="text" class="form-control" autocomplete="off" name="StartingMarketCheese" required>
+          </div>
+
+          <div class="form-group" style="width:30%; float:left">
+            <label for="MarketCheese">Latest Cheese</label>
+            <input type="text" class="form-control" autocomplete="off" name="MarketCheese" required>
+          </div>
+
+          <div class="form-group" style="width:30%; margin-left:5%; float:left">
+            <label for="SpentCheese">Spent Cheese</label>
+            <input type="text" class="form-control" autocomplete="off" name="SpentCheese" required>
+          </div>
+
+          <div class="form-group" style="width:30%; margin-left:5%; float:left">
+            <label for="TargetCheese">Target Cheese</label>
+            <input type="text" class="form-control" autocomplete="off" name="TargetCheese" required>
+          </div>
+
+          <div id="br">
+            <br><br><br><br><br><br><br>
+          </div>
+          <div class="form-group" id="counterUsers">
+            <label for="CounterUsers">Side-Accounts</label>
+            <select multiple class="form-control" name="CounterUsers"  style="height: 140px">
+              {{#each users}}
+                <option value={{this.ID}}>{{this.Name}}</option>
+              {{/each}}
+            </select>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox"  id="useAllUsers" name="UseSideUsers" >
+            <label class="form-check-label" for="UseSideUsers">
+              Use All Users
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn bg-gradient-success">Submit</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
+</div>
+</div>
+<!-- Modal Edit -->
+
+
 <style>
-  .list-group-item:nth-child(n+3) {
-    margin-top: 15px
+  .list-group-item:nth-child(n+1) {
+    margin-top: 20px
   }
-
   .list-group-item:nth-child(1) {
-    margin-top: -15px
-  }
-
-  .list-group-item:nth-child(2) {
-    margin-top: -15px
-  }
-
-  .list-group-item:nth-child(3) {
-    margin-top: -15px
-  }
-
-  .list-group-item:nth-child(3n - 1) {
-    margin-left: 5%;
-  }
-
-  .list-group-item:nth-child(3n) {
-    margin-left: 5%;
+    margin-top: -10px
   }
 </style>
 
