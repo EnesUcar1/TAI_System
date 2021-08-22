@@ -25,6 +25,16 @@ const user_update = async (req, res) => {
   return res.send(result).end();
 };
 
+const user_settings = async (req, res) => {
+  let account = await accountModel.getCurrentAccount(req.cookies.accountToken);
+  if (Array.isArray(account)) {
+    account = account[0]
+  }
+  req.body.AccountID = account.ID;
+  let result = await userModel.updateSettings(req.body);
+  return res.redirect("/users")
+};
+
 const user_delete = async (req, res) => {
   let result = await userModel.deleteUser(req.body.ID);
   return res.send(result).end();
@@ -35,5 +45,6 @@ module.exports = {
   user_index,
   user_add,
   user_update,
+  user_settings,
   user_delete
 };

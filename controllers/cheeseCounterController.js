@@ -6,7 +6,6 @@ const furModel = require('../models/furModel');
 
 const helperConstant = require('../common/helpers/constant');
 
-
 const cheeseCounter_index = async (req, res) => {
   let account = await accountModel.getCurrentAccount(req.cookies.accountToken);
   if (Array.isArray(account)) {
@@ -70,6 +69,7 @@ const cheeseCounter_add = async (req, res) => {
 };
 
 const cheeseCounter_update = async (req, res) => {
+  console.log("gel")
   let result = await cheeseCounterModel.updateCounter(req.body);
   res.redirect("/cheese-counters")
 };

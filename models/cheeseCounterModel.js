@@ -64,10 +64,10 @@ function updateCounter(counter) {
   let marketCheese = counter.MarketCheese;
   let spentCheese = counter.SpentCheese;
   let targetCheese = counter.TargetCheese;
-  console.log(counter)
 
   return new Promise((resolve, reject) => {
     db.run("Update CheeseCounters Set Name = '" + name + "' ,StartingDate = '" + startingDate + "' ,startingMarketCheese = '" + startingMarketCheese + "', MarketCheese ='" + marketCheese + "', SpentCheese='" + spentCheese + "', TargetCheese='" + targetCheese + "' Where ID = '" + id + "'", (err, row) => {
+      console.log(err)
       return resolve(row);
     });
   }).then(value => {

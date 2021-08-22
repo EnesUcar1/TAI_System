@@ -13,7 +13,7 @@ $('#useAllUsers').on('change', function(){ // on change of state
 });
 
 $(document).on("click", ".icon-edit-counter", function(e) {
-  let ID = $(this).parent().parent().parent().data("rowId");
+  let ID = $(this).parent().parent().data('rowId')
   let name = $(this).parent().parent().parent().children(':nth-child(1)').children(':nth-child(1)').children(':nth-child(1)').children(':nth-child(1)').text();
   let startingDate = $(this).parent().parent().parent().children(':nth-child(1)').children(':nth-child(1)').children(':nth-child(1)').children(':nth-child(2)').text().replace('(', '').replace(')', '');
   let startingMarketCheese = $(this).parent().parent().parent().children(':nth-child(1)').children(':nth-child(1)').children(':nth-child(3)').text()
