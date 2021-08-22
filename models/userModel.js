@@ -98,6 +98,19 @@ function updateUser(user) {
   });
 }
 
+function updateSettings(data) {
+  let id = data.AccountID;
+  let entry = data.Entry;
+
+  return new Promise((resolve, reject) => {
+    db.run("Update Accounts Set ShowUserEntries = '" + entry + "' Where ID = '" + id + "'", (err, row) => {
+      return resolve();
+    });
+  }).then(value => {
+    return true;
+  });
+}
+
 function deleteUser(ID) {
   let deleted = 1;
   return new Promise((resolve, reject) => {
@@ -116,5 +129,6 @@ module.exports = {
   getFullCheeseUserCount,
   addUser,
   updateUser,
+  updateSettings,
   deleteUser
 };

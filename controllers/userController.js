@@ -7,6 +7,8 @@ const user_index = async (req, res) => {
     account = account[0]
   }
   let users = await userModel.getUsersByAccountID(account.ID);
+  if (users.ShowUserEntries != 0)
+    users = users.slice(0, account.ShowUserEntries);
   res.render(__dirname + '/../views/home/user.handlebars', { userLeftSideClass: 'active', pageName: "Users", users: users.reverse(), account: account });
 };
 

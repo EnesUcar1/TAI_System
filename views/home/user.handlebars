@@ -147,20 +147,20 @@
         <h5 class="modal-title">Settings</h5>
       </div>
       <form action="/users/settings" method="post">
-      <div class="modal-body">
-        <div id="accountForm">
-          <div class="form-group" style="width:100%; float:left">
-            <label for="entry">Show Entries</label>
-            <input type="text" class="form-control" id="name-add" name="entry" required="">
+        <div class="modal-body">
+          <div id="accountForm">
+            <div class="form-group" style="width:100%; float:left">
+              <label for="entry">Show Entries</label>
+              <input type="text" class="form-control" id="name-add" name="Entry" value="{{account.ShowUserEntries}}" required="">
+            </div>
           </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn bg-gradient-success">Submit</button>
         </div>
       </div>
     </form>
-      <div class="modal-footer">
-        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn bg-gradient-success">Submit</button>
-      </div>
-    </div>
   </div>
 </div>
 <script src="/static/assets/js/user.js"></script>

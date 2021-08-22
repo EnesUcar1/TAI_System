@@ -9,7 +9,7 @@ router.use(bodyParser.json());
 
 router.get('/', accountModel.isLogin, userController.user_index);
 router.post('/', [accountModel.isLogin, urlencodedParser], userController.user_add);
-router.post('/settings', [accountModel.isLogin, urlencodedParser], userController.settings);
+router.post('/settings', [accountModel.isLogin, urlencodedParser], userController.user_settings);
 router.put('/', [accountModel.isLogin, urlencodedParser], userController.user_update);
 router.delete('/', [accountModel.isLogin, urlencodedParser], userController.user_delete);
 
