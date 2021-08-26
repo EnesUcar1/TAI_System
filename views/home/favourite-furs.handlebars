@@ -25,7 +25,10 @@
                 </div>
                 <div class="ms-auto text-end">
                   <img style="position: absolute; right: 60px; bottom: 20px; " src="{{this.Link}}" ondblclick="window.location='/favourite-furs/delete-fur?ID={{this.ID}}'">
-                  <img style="position: absolute; right: 10px; bottom: 20px;" src="{{this.BadgeLink}}">
+                  <img style="position: absolute; right: 10px; bottom: 20px;" src="{{this.BadgeLink}}" ondblclick="window.location='/favourite-furs/buy-fur?ID={{this.ID}}'">
+                  {{#if this.IsBought}}
+                    <img style="position: absolute; right: 10px; top: 20px; width:30px; height: 30px" src="https://img.icons8.com/plasticine/2x/paid.png">
+                  {{/if}}
                 </div>
               </li>
             {{/each}}
@@ -99,6 +102,9 @@
         <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">Total cheese of furs (Priority = 2):</span> <span class=" mb-2 text-xs" style="font-size:13px; margin-left: 2px">{{furCheese.TotalTwop}}</span><br>
         <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">Total cheese of furs (Priority = 1):</span> <span class=" mb-2 text-xs" style="font-size:13px; margin-left: 2px">{{furCheese.TotalOnep}}</span><br>
         <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">Total cheese of furs:</span> <span class=" mb-2 text-xs" style="font-size:13px; margin-left: 2px"><b>{{furCheese.Total}}</b></span>
+        <br><br>
+        <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">If you are double click on fur image you delete favourite fur.</span><br>
+        <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">If you are double click on badge image you buy favourite fur.</span>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
@@ -114,12 +120,15 @@
   .list-group-item:nth-child(1) {
     margin-top: -15px
   }
+
   .list-group-item:nth-child(2) {
     margin-top: -15px
   }
+
   .list-group-item:nth-child(3) {
     margin-top: -15px
   }
+
   .list-group-item:nth-child(3n - 1) {
     margin-left: 5%;
   }

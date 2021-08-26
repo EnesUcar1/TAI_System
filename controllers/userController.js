@@ -1,15 +1,16 @@
 const accountModel = require('../models/accountModel');
 const userModel = require('../models/userModel');
+const cache = require('memory-cache');
 
 const user_index = async (req, res) => {
   let account = await accountModel.getCurrentAccount(req.cookies.accountToken);
   if (Array.isArray(account)) {
     account = account[0]
   }
-  let users = await userModel.getUsersByAccountID(account.ID);
-  if (users.ShowUserEntries != 0)
+  let users = (await userModel.getUsersByAccountID(account.ID)).reverse();
+  if (account.ShowUserEntries > 0)
     users = users.slice(0, account.ShowUserEntries);
-  res.render(__dirname + '/../views/home/user.handlebars', { userLeftSideClass: 'active', pageName: "Users", users: users.reverse(), account: account });
+  res.render(__dirname + '/../views/home/user.handlebars', { userLeftSideClass: 'active', pageName: "Users", users: users, account: account });
 };
 
 const user_add = async (req, res) => {
@@ -34,6 +35,7 @@ const user_settings = async (req, res) => {
   }
   req.body.AccountID = account.ID;
   let result = await userModel.updateSettings(req.body);
+  await cache.del('account_' + req.cookies.accountToken);
   return res.redirect("/users")
 };
 

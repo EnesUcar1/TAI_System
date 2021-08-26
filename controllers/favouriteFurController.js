@@ -7,7 +7,7 @@ const fur_index = async (req, res) => {
   if (Array.isArray(account)) {
     account = account[0]
   }
-  
+
   let furs = await furModel.getFavouriteFurs(account.ID);
   furCheese.Total = (await furModel.getSumFurCheese(account.ID))[0]['Sum(Cheese)'];
   furCheese.TotalFivep = (await furModel.getSumFurCheese(account.ID, 5))[0]['Sum(Cheese)'];
@@ -29,6 +29,17 @@ const fur_index = async (req, res) => {
   if (!furCheese.TotalOnep)
     furCheese.TotalOnep = 0;
 
+  let length = furs.length;
+
+  for (var i = 0; i < length; i++) {
+    if (furs[i].IsBought == 1) {
+      furs[i].IsBought = true;
+    } else {
+      furs[i].IsBought = false;
+    }
+  }
+
+
   res.render(__dirname + '/../views/home/favourite-furs.handlebars', {
     favouriteFurLeftSideClass: 'active',
     furs: furs,
@@ -48,6 +59,11 @@ const fur_add = async (req, res) => {
   res.redirect("/favourite-furs");
 };
 
+const fur_buy = async (req, res) => {
+  await furModel.buyFavouriteFur(req.query.ID);
+  res.redirect("/favourite-furs");
+};
+
 const fur_delete = async (req, res) => {
   await furModel.deleteFavouriteFur(req.query.ID);
   res.redirect("/favourite-furs");
@@ -56,5 +72,6 @@ const fur_delete = async (req, res) => {
 module.exports = {
   fur_index,
   fur_add,
+  fur_buy,
   fur_delete
 };

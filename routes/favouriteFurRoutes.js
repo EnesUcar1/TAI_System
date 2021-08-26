@@ -9,6 +9,7 @@ router.use(bodyParser.json());
 
 router.get('/', accountModel.isLogin, favouriteFurController.fur_index);
 router.post('/', [accountModel.isLogin, urlencodedParser], favouriteFurController.fur_add);
+router.get('/buy-fur', [accountModel.isLogin, urlencodedParser], favouriteFurController.fur_buy);
 router.get('/delete-fur', [accountModel.isLogin, urlencodedParser], favouriteFurController.fur_delete);
 
 module.exports = router;
