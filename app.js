@@ -11,6 +11,7 @@ const userRoutes = require('./routes/userRoutes');
 const cheeseCounterRoutes = require('./routes/cheeseCounterRoutes');
 const favouriteFurRoutes = require('./routes/favouriteFurRoutes');
 const rewardRoutes = require('./routes/rewardRoutes');
+const miscellaneousRoutes = require('./routes/miscellaneousRoutes');
 const signInRoutes = require('./routes/signInRoutes');
 const signUpRoutes = require('./routes/signUpRoutes');
 
@@ -32,6 +33,7 @@ app.use('/users', userRoutes);
 app.use('/cheese-counters', cheeseCounterRoutes);
 app.use('/favourite-furs', favouriteFurRoutes);
 app.use('/rewards', rewardRoutes);
+app.use('/miscellaneous', miscellaneousRoutes);
 app.use('/sign-in', signInRoutes);
 app.use('/sign-up', signUpRoutes);
 
