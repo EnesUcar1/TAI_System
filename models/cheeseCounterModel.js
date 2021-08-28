@@ -1,5 +1,6 @@
 const helperConstant = require('../common/helpers/constant');
 const cheeseUserModel = require('./counterUsersModel.js');
+const userModel = require('../models/userModel');
 const sqlite3 = require('sqlite3').verbose();
 let db = new sqlite3.Database('./database/tais.db');
 
@@ -56,7 +57,7 @@ async function addCounter(counter) {
   });
 }
 
-function updateCounter(counter) {
+async function updateCounter(counter) {
   let id = counter.ID;
   let name = counter.Name;
   let startingDate = counter.StartingDate;
@@ -64,10 +65,22 @@ function updateCounter(counter) {
   let marketCheese = counter.MarketCheese;
   let spentCheese = counter.SpentCheese;
   let targetCheese = counter.TargetCheese;
+  let status = 0;
+  let endDate = "";
+  let sideUsersCheese = 0;
+  let fullCheeseCount = 0;
+
+  if (counter.closeCheeseCounter == 'on') {
+    endDate = counter.EndDate;
+    status = 1;
+    if (counter.UseSideUsers == 'on') {
+      sideUsersCheese = await userModel.getUsersSumCheese(counter.AccountID);
+      fullCheeseCount = await userModel.getFullCheeseUserCount(counter.AccountID);
+    }
+  }
 
   return new Promise((resolve, reject) => {
-    db.run("Update CheeseCounters Set Name = '" + name + "' ,StartingDate = '" + startingDate + "' ,startingMarketCheese = '" + startingMarketCheese + "', MarketCheese ='" + marketCheese + "', SpentCheese='" + spentCheese + "', TargetCheese='" + targetCheese + "' Where ID = '" + id + "'", (err, row) => {
-      console.log(err)
+    db.run("Update CheeseCounters Set Name = '" + name + "' ,StartingDate = '" + startingDate + "' ,startingMarketCheese = '" + startingMarketCheese + "', MarketCheese ='" + marketCheese + "', SpentCheese='" + spentCheese + "', Status='"  + status  + "', EndDate='" + endDate  + "', SideUsersCheese='" + sideUsersCheese  + "', TargetCheese='" + targetCheese +  "' Where ID = '" + id + "'", (err, row) => {
       return resolve(row);
     });
   }).then(value => {

@@ -1,15 +1,33 @@
-$("#br").hide();
+$(document).ready(function() {
+  if ($("#closeCheeseCounter-edit").checked) {
+    $("#EndDate-edit").show();
+  } else {
+    $("#EndDate-edit").hide();
+  }
+});
+//    $("#useAllUsers-edit").prop('checked', false);
 
-$('#useAllUsers').on('change', function(){ // on change of state
-   if(this.checked) // if changed state is "CHECKED"
-    {
-      $("#counterUsers").hide();
-      $("#br").show();
+$('#useSomeUsers-edit').on('change', function() {
+  if (this.checked) {
+    $("#useAllUsers-edit").prop('checked', false);
+  } else {
+  }
+});
 
-    } else {
-      $("#counterUsers").show();
-      $("#br").hide();
-    }
+
+$('#useAllUsers-edit').on('change', function() {
+  if (this.checked) {
+    $("#useSomeUsers-edit").prop('checked', false);
+  } else {
+  }
+});
+
+$('#closeCheeseCounter-edit').on('change', function() {
+  if (this.checked) {
+    $("#EndDate-edit").show();
+  } else {
+    $("#EndDate-edit").hide();
+  }
 });
 
 $(document).on("click", ".icon-edit-counter", function(e) {

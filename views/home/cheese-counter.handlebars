@@ -19,7 +19,7 @@
             {{#each cheeseCounters}}
               <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg" data-row-id="{{this.ID}}">
                 <div class="d-flex flex-column">
-                  <h6 class="mb-3 text-sm"><span>{{this.Name}}</span> <span class="mb-2 text-xs"><span class="text-dark font-weight-bold ms-sm-2">({{this.StartingDate}})</span></span></h6>
+                  <h6 class="mb-3 text-sm"><span>{{this.Name}}</span> <span class="mb-2 text-xs"><span class="text-dark font-weight-bold ms-sm-2">({{this.StartingDate}}{{#if this.IsCounterEnded}} - {{this.EndDate}} {{/if}})</span></span></h6>
                   <span class="mb-2 text-xs">Won Cheese: <span class="text-dark font-weight-bold ms-sm-2">{{this.TotalCheese}}</span></span>
                   <span style="display:none">{{this.StartingMarketCheese}}</span>
                   <span style="display:none">{{this.MarketCheese}}</span>
@@ -106,6 +106,7 @@
               Use All Users
             </label>
           </div>
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
@@ -117,7 +118,6 @@
 </div>
 <!-- Modal Edit -->
 
-<!-- Modal Add -->
 <div class="modal fade" id="edit-counter" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-top" role="document">
     <div class="modal-content">
@@ -157,22 +157,31 @@
             <input type="text" class="form-control" autocomplete="off" name="TargetCheese" required>
           </div>
 
-          <div id="br">
-            <br><br><br><br><br><br><br>
-          </div>
-          <div class="form-group" id="counterUsers">
-            <label for="CounterUsers">Side-Accounts</label>
-            <select multiple class="form-control" name="CounterUsers" style="height: 140px">
-              {{#each users}}
-                <option value={{this.ID}}>{{this.Name}}</option>
-              {{/each}}
-            </select>
+          <div style="font-size:1px">eee</div>
+
+          <div class="form-group" style="width:100%;" id="EndDate-edit">
+            <label for="EndDate">End Date</label>
+            <input type="text" class="form-control" autocomplete="off" name="EndDate">
           </div>
 
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="useAllUsers" name="UseSideUsers">
+            <input class="form-check-input" type="checkbox" id="useSomeUsers-edit" name="useSomeUsers">
+            <label class="form-check-label" for="useSomeUsers">
+              Use Some Users
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="useAllUsers-edit" name="UseSideUsers">
             <label class="form-check-label" for="UseSideUsers">
               Use All Users
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="closeCheeseCounter-edit" name="closeCheeseCounter">
+            <label class="form-check-label" for="closeCheeseCounter">
+              Close The Cheese Counter
             </label>
           </div>
         </div>
@@ -184,11 +193,84 @@
     </div>
   </div>
 </div>
-</div>
-</div>
 <!-- Modal Edit -->
 
 
+
+<a class="btn-link text-dark mb-0" href="javascript:;" data-bs-toggle="modal" data-bs-target="#info-furr" data-toggle="tooltip" data-original-title="Add Fur">
+  <i class="fas fa-info-circle text-sm" rel="tooltip"></i>
+</a>
+
+
+<div class="modal fade" id="info-furr" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-top modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Cheese Counter</h5>
+      </div>
+      <form action="/cheese-counters" method="post">
+        <div class="modal-body">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0">
+              <thead>
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Role</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cheese</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Created</th>
+                  <th class="text-secondary opacity-7"></th>
+                </tr>
+              </thead>
+              <tbody id="tbody-users">
+                {{#each users}}
+                  <tr data-row-id="{{this.ID}}">
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div>
+                          <img src="https://yazhocam.com/wp-content/uploads/2018/02/Beyaz-Arkaplan.jpg" class="avatar avatar-sm me-3" alt="user1">
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{this.Name}}</h6>
+                          <p class="text-xs text-secondary mb-0">{{this.Email}}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <p class="text-xs font-weight-bold mb-0">User</p>
+                      <p class="text-xs text-secondary mb-0">Cheeser</p>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <span class="badge badge-sm">{{this.Cheese}}</span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">{{this.Date}}</span>
+                    </td>
+                    <td class="align-middle">
+                      <a href="javascript:;" class="icon-edit-user text-secondary font-weight-bold text-xs" data-bs-toggle="modal" data-bs-target="#edit-user" data-toggle="tooltip" data-original-title="Edit user">
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+                      </a>
+
+                      <a href="javascript:;" style="margin-left:5%" class="button-delete-user text-secondary font-weight-bold text-xs" data-id="{{this.ID}}">
+                        <i class="fas fa-trash" aria-hidden="true"></i>
+                      </a>
+                    </td>
+                  </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn bg-gradient-success">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 <style>
   .list-group-item:nth-child(n+1) {
     margin-top: 20px

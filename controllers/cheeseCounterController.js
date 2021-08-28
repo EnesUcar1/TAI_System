@@ -21,6 +21,10 @@ const cheeseCounter_index = async (req, res) => {
     fursCheeseSum = fursCheeseSum[0]['Sum(Cheese)'];
 
     for (var i = 0; i < length; i++) {
+      counters[i].IsCounterEnded = (counters[i].Status == 1) ? (true) : (false);
+      counters[i].IsCheckedUseSideUsers = (counters[i].UseSideUsers == 1) ? (true) : (false)
+      counters[i].IsCheckedSomeoneUsers = (counters[i].UseSideUsers == 0) ? (true) : (false)
+
       let startingDate = counters[i].StartingDate.replace(".", "/").replace(".", "/").split("/");
       startingDate = new Date(+startingDate[2], startingDate[1] - 1, + startingDate[0]);
 
@@ -69,7 +73,11 @@ const cheeseCounter_add = async (req, res) => {
 };
 
 const cheeseCounter_update = async (req, res) => {
-  console.log("gel")
+  let account = await accountModel.getCurrentAccount(req.cookies.accountToken);
+  if (Array.isArray(account)) {
+    account = account[0]
+  }
+  req.body.AccountID = account.ID;
   let result = await cheeseCounterModel.updateCounter(req.body);
   res.redirect("/cheese-counters")
 };
