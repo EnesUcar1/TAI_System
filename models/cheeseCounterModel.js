@@ -34,15 +34,20 @@ async function addCounter(counter) {
   let spentCheese = counter.SpentCheese;
   let targetCheese = counter.TargetCheese;
   let status = 0; // 0: devam; 1: bitti
-  let useSideUsers = 0; // 0: hayır, 1: evet
+  let useSideUsers = 0; // 0: hayır, 1: evet,
+  let useSomeUsers = 0;
   let deleted = 0;
 
   if (counter.UseSideUsers == "on") {
     useSideUsers = 1
   }
 
+  if (counter.UseSomeUsers == "on") { //// TODO: yapılacak
+    useSomeUsers = 1
+  }
+
   return new Promise((resolve, reject) => {
-    db.run("INSERT INTO CheeseCounters (Created, StartingDate, AccountID, Name, MarketCheese, StartingMarketCheese, SpentCheese, TargetCheese, Status, UseSideUsers, Deleted) VALUES ('" + created + "', '" + startingDate + "', '" + accountID + "', '" + name + "', '" + marketCheese + "', '" + startingMarketCheese + "', '" + spentCheese + "', '" + targetCheese + "', '" + status + "', '" + useSideUsers + "', '" +  deleted + "');", function(err) {
+    db.run("INSERT INTO CheeseCounters (Created, StartingDate, AccountID, Name, MarketCheese, StartingMarketCheese, SpentCheese, TargetCheese, Status, UseSideUsers, Deleted) VALUES ('" + created + "', '" + startingDate + "', '" + accountID + "', '" + name + "', '" + marketCheese + "', '" + startingMarketCheese + "', '" + useSomeUsers + "', '" + spentCheese + "', '" + targetCheese + "', '" + status + "', '" + useSideUsers + "', '" +  deleted + "');", function(err) {
       resolve(this)
     });
   }).then(async (value) => {
@@ -95,7 +100,7 @@ async function updateCounter(counter) {
     });
   }).then(value => {
     if (useSideUsers == 0 && useSomeUsers == 1) {
-      
+
     }
   });
 }
