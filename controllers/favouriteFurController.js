@@ -59,8 +59,8 @@ const fur_add = async (req, res) => {
   res.redirect("/favourite-furs");
 };
 
-const fur_buy = async (req, res) => {
-  await furModel.buyFavouriteFur(req.query.ID);
+const fur_edit = async (req, res) => {
+  await furModel.editFavouriteFur(req.body);
   res.redirect("/favourite-furs");
 };
 
@@ -72,6 +72,6 @@ const fur_delete = async (req, res) => {
 module.exports = {
   fur_index,
   fur_add,
-  fur_buy,
+  fur_edit,
   fur_delete
 };

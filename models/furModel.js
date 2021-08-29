@@ -16,12 +16,15 @@ function addFavouriteFur(fur) {
   let link = fur.Link;
   let badgeLink = fur.BadgeLink;
   let cheese = fur.Cheese;
-  let isBought = 0;
+  let fraise = fur.Fraise;
+  let isBought = (fur.Bought == 'Yes') ? 1 : 0;
   let priority = fur.Priority;
+  let boughtType = fur.BoughtType;
+  let purchasedDate = fur.PurchasedDate;
   let deleted = 0;
 
   return new Promise((resolve, reject) => {
-    db.run("INSERT INTO FavouriteFurs (Created, AccountID, Name, Link, BadgeLink, Cheese, IsBought, Priority, Deleted) VALUES ('" + created + "', '" + accountID + "', '" +  name + "', '" + link + "', '" +  badgeLink + "', '" + cheese + "', '" + isBought + "', '" + priority + "', '" + deleted + "');", (err, row) => { return resolve(err); });
+    db.run("INSERT INTO FavouriteFurs (Created, AccountID, Name, Link, BadgeLink, Cheese, Fraise, IsBought, Priority, BoughtType, PurchasedDate, Deleted) VALUES ('" + created + "', '" + accountID + "', '" +  name + "', '" + link + "', '" +  badgeLink + "', '" + cheese + "', '" +  fraise + "', '" + isBought + "', '" + priority + "', '" +  boughtType + "', '" + purchasedDate + "', '" + deleted + "');", (err, row) => { return resolve(err); });
   }).then(value => { return true; });
 }
 
@@ -35,9 +38,20 @@ function deleteFavouriteFur(favouriteFurID) {
   });
 }
 
-function buyFavouriteFur(favouriteFurID) {
+function editFavouriteFur(fur) {
+  let ID = fur.ID;
+  let link = fur.Link;
+  let badgeLink = fur.BadgeLink;
+  let name = fur.Name;
+  let cheese = fur.Cheese;
+  let fraise = fur.Fraise;
+  let priority = fur.Priority;
+  let isBought = (fur.Bought == 'Yes') ? 1 : 0;
+  let boughtType = fur.BoughtType;
+  let purchasedDate = fur.PurchasedDate;
+
   return new Promise((resolve, reject) => {
-    db.run("Update FavouriteFurs Set IsBought = 1 Where ID = '" + favouriteFurID + "'", (err, row) => {
+    db.run("Update FavouriteFurs Set Link = '" + link + "', BadgeLink = '"  + badgeLink + "', Name =  '" + name + "', Cheese = " + cheese + " , Fraise = " + fraise + ", Priority = " + priority +  ", IsBought = '" + isBought + "', BoughtType = '" + boughtType + "', PurchasedDate = '" + purchasedDate + "' Where ID = '" + ID + "'", (err, row) => {
       return resolve(row);
     });
   }).then(value => {
@@ -61,7 +75,7 @@ function getSumFurCheese(accountID, priority = null) {
 module.exports = {
   getFavouriteFurs,
   addFavouriteFur,
-  buyFavouriteFur,
+  editFavouriteFur,
   deleteFavouriteFur,
   getSumFurCheese
 };

@@ -1,7 +1,7 @@
 <div class="container-fluid py-4">
   <div class="row">
     <div class="col-12">
-      <div class="card mb-4">
+      <div class="card">
         <div class="card-header pb-0">
           <h6 class="">Favourite Furs List
             <td class="align-middle">
@@ -17,15 +17,26 @@
         <div class="card-body pt-4 p-3">
           <ul class="list-group" style="display: inline">
             {{#each furs}}
-              <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg fur-{{this.ID}}" style="width:30%; height: 125px;float:left;">
+              <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg fur-{{this.ID}}" data-row-id="{{this.ID}}" style="width:30%; height: 135px;float:left;">
                 <div class="d-flex flex-column">
-                  <h6 class="mb-3 text-sm">{{this.Name}}</h6>
+                  <a href="javascript:;" style="letter-spacing: normal;" data-bs-toggle="modal" data-bs-target="#edit-fur" data-toggle="tooltip" data-original-title="Edit Fur">
+                    <h6 class="mb-3 text-sm" id="fur-name">{{this.Name}}</h6>
+                  </a>
+                  <span style="font-size:1px; margin-top:-3px">{{this.ID}}</span>
                   <span class="mb-2 text-xs">Cheese: <span class="text-dark font-weight-bold ms-sm-2">{{this.Cheese}}</span></span>
+                  <span class="mb-2 text-xs">Fraise: <span class="text-dark font-weight-bold ms-sm-2">{{this.Fraise}}</span></span>
                   <span class="mb-2 text-xs">Priority: <span class="text-dark font-weight-bold ms-sm-2">{{this.Priority}}</span></span>
+                  {{#if this.IsBought}}
+                    <span style="display:none">Yes</span>
+                  {{else}}
+                    <span style="display:none">No</span>
+                  {{/if}}
+                  <span style="display:none">{{this.BoughtType}}</span>
+                  <span style="display:none">{{this.PurchasedDate}}</span>
                 </div>
                 <div class="ms-auto text-end">
-                  <img style="position: absolute; right: 60px; bottom: 20px; " src="{{this.Link}}" ondblclick="window.location='/favourite-furs/delete-fur?ID={{this.ID}}'">
-                  <img style="position: absolute; right: 10px; bottom: 20px;" src="{{this.BadgeLink}}" ondblclick="window.location='/favourite-furs/buy-fur?ID={{this.ID}}'">
+                  <img style="position: absolute; right: 60px; bottom: 20px; " src="{{this.Link}}">
+                  <img style="position: absolute; right: 10px; bottom: 20px;" src="{{this.BadgeLink}}">
                   {{#if this.IsBought}}
                     <img style="position: absolute; right: 10px; top: 20px; width:30px; height: 30px" src="https://img.icons8.com/plasticine/2x/paid.png">
                   {{/if}}
@@ -36,82 +47,170 @@
         </div>
       </div>
     </div>
-
-    <!-- Modal Edit -->
-    <div class="modal fade" id="add-fur" tabindex="-1" role="dialog">
-      <div class="modal-dialog modal-dialog-top" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Add Favourite Fur</h5>
-          </div>
-          <form action="/favourite-furs" method="post">
-            <div class="modal-body">
-              <div class="form-group" style="width:47.5%;  float:left">
-                <label for="Link">Fur URL</label>
-                <input type="text" class="form-control" name="Link" autocomplete="off" required>
-              </div>
-
-              <div class="form-group" style="width:47.5%; margin-left:5%; float:left">
-                <label for="BadgeLink">Badge URL</label>
-                <input type="text" class="form-control" name="BadgeLink" autocomplete="off" required>
-              </div>
-
-              <div class="form-group" style="width:30%; float:left">
-                <label for="Name">Name</label>
-                <input type="text" class="form-control" autocomplete="off" name="Name" required>
-              </div>
-
-              <div class="form-group" style="width:30%; margin-left:5%; float:left">
-                <label for="Cheese">Cheese</label>
-                <input type="text" class="form-control" autocomplete="off" name="Cheese" required>
-              </div>
-
-              <div class="form-group" style="width:30%; margin-left:5%; float:left">
-                <label for="Priority">Priority</label>
-                <select class="form-control" id="Priority" name="Priority" required>
-                  <option disabled selected value>Select one...</option>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </select>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="submit" class="btn bg-gradient-success">Submit</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
-<!-- Modal Edit -->
-<div class="modal fade" id="info-fur" tabindex="-1" role="dialog">
+
+
+
+<!-- Modal Add -->
+<div class="modal fade" id="add-fur" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-top" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Favourite Furs Informations</h5>
+        <h5 class="modal-title">Add Favourite Fur</h5>
       </div>
-      <div class="modal-body">
-        <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">Total cheese of furs (Priority = 5):</span> <span class=" mb-2 text-xs" style="font-size:13px; margin-left: 2px">{{furCheese.TotalFivep}}</span><br>
-        <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">Total cheese of furs (Priority = 4):</span> <span class=" mb-2 text-xs" style="font-size:13px; margin-left: 2px">{{furCheese.TotalFourp}}</span><br>
-        <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">Total cheese of furs (Priority = 3):</span> <span class=" mb-2 text-xs" style="font-size:13px; margin-left: 2px">{{furCheese.TotalThreep}}</span><br>
-        <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">Total cheese of furs (Priority = 2):</span> <span class=" mb-2 text-xs" style="font-size:13px; margin-left: 2px">{{furCheese.TotalTwop}}</span><br>
-        <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">Total cheese of furs (Priority = 1):</span> <span class=" mb-2 text-xs" style="font-size:13px; margin-left: 2px">{{furCheese.TotalOnep}}</span><br>
-        <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">Total cheese of furs:</span> <span class=" mb-2 text-lg" style="font-size:13px; margin-left: 2px"><b>{{furCheese.Total}}</b></span>
-        <br><br>
-        <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">If you are double click on fur image you delete favourite fur.</span><br>
-        <span class="text-dark font-weight-bold ms-sm-2" style="font-size:13px">If you are double click on badge image you buy favourite fur.</span>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
+      <form action="/favourite-furs" method="post">
+        <div class="modal-body">
+          <div class="form-group" style="width:47.5%;  float:left">
+            <label for="Link">Fur URL</label>
+            <input type="text" class="form-control" name="Link" autocomplete="off" required>
+          </div>
+
+          <div class="form-group" style="width:47.5%; margin-left:5%; float:left">
+            <label for="BadgeLink">Badge URL</label>
+            <input type="text" class="form-control" name="BadgeLink" autocomplete="off" required>
+          </div>
+
+          <div class="form-group" style="width:30%; float:left">
+            <label for="Name">Name</label>
+            <input type="text" class="form-control" autocomplete="off" name="Name" required>
+          </div>
+
+          <div class="form-group" style="width:30%; margin-left:5%; float:left">
+            <label for="Cheese">Cheese</label>
+            <input type="text" class="form-control" autocomplete="off" name="Cheese" required>
+          </div>
+
+          <div class="form-group" style="width:30%; margin-left:5%; float:left">
+            <label for="Fraise">Fraise</label>
+            <input type="text" class="form-control" autocomplete="off" name="Fraise" required>
+          </div>
+
+          <div class="form-group" style="width:30%; float:left">
+            <label for="Priority">Priority</label>
+            <select class="form-control" id="Priority" name="Priority" required>
+              <option disabled selected value>Select one...</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="width:30%; margin-left:5%; float:left">
+            <label for="Bought">Did You Bought?</label>
+            <select class="form-control" id="Bought" name="Bought">
+              <option selected>No</option>
+              <option>Yes</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="width:30%; margin-left:5%; float:left">
+            <label for="BoughtType">If You Bought, Type</label>
+            <select class="form-control" id="BoughtType" name="BoughtType">
+              <option selected>None</option>
+              <option>Cheese</option>
+              <option>Fraise</option>
+              <option>Gift</option>
+            </select>
+          </div>
+          <div class="form-group" style="width:47.5%">
+            <label for="PurchasedDate">If You Bought, Purchased Date</label>
+            <input type="text" class="form-control" autocomplete="off"id="PurchasedDate"  name="PurchasedDate">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn bg-gradient-success">Submit</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
+
+
+
+<!-- Modal edit -->
+<div class="modal fade" id="edit-fur" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-top" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Favourite Fur</h5>
+      </div>
+      <form action="/favourite-furs/edit-fur" method="post">
+        <div class="modal-body">
+          <div class="form-group" style="width:47.5%;  float:left">
+            <input type="hidden" id="furID-edit" name="ID" />
+            <label for="Link">Fur URL</label>
+            <input type="text" class="form-control" name="Link" autocomplete="off" required>
+          </div>
+
+          <div class="form-group" style="width:47.5%; margin-left:5%; float:left">
+            <label for="BadgeLink">Badge URL</label>
+            <input type="text" class="form-control" name="BadgeLink" autocomplete="off" required>
+          </div>
+
+          <div class="form-group" style="width:30%; float:left">
+            <label for="Name">Name</label>
+            <input type="text" class="form-control" autocomplete="off" name="Name" required>
+          </div>
+
+          <div class="form-group" style="width:30%; margin-left:5%; float:left">
+            <label for="Cheese">Cheese</label>
+            <input type="text" class="form-control" autocomplete="off" name="Cheese" required>
+          </div>
+
+          <div class="form-group" style="width:30%; margin-left:5%; float:left">
+            <label for="Fraise">Fraise</label>
+            <input type="text" class="form-control" autocomplete="off" name="Fraise" required>
+          </div>
+
+          <div class="form-group" style="width:30%; float:left">
+            <label for="Priority">Priority</label>
+            <select class="form-control" id="Priority" name="Priority" required>
+              <option disabled selected value>Select one...</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="width:30%; margin-left:5%; float:left">
+            <label for="Bought">Did You Bought?</label>
+            <select class="form-control" id="Bought" name="Bought">
+              <option selected>No</option>
+              <option>Yes</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="width:30%; margin-left:5%; float:left">
+            <label for="BoughtType">If You Bought, Type</label>
+            <select class="form-control" id="BoughtType" name="BoughtType">
+              <option selected>None</option>
+              <option>Cheese</option>
+              <option>Fraise</option>
+              <option>Gift</option>
+            </select>
+          </div>
+          <div class="form-group" style="width:47.5%">
+            <label for="PurchasedDate">If You Bought, Purchased Date</label>
+            <input type="text" class="form-control" autocomplete="off"id="PurchasedDate"  name="PurchasedDate">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" id="delete-fur-button" onclick="window.location='/favourite-furs/delete-fur'" class="btn bg-gradient-danger">Delete</button>
+          <button type="submit" class="btn bg-gradient-success">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
 <style>
   .list-group-item:nth-child(n+3) {
     margin-top: 15px
