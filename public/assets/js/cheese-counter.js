@@ -1,16 +1,14 @@
 $(document).ready(function() {
-  if ($("#closeCheeseCounter-edit").checked) {
-    $("#EndDate-edit").show();
-  } else {
-    $("#EndDate-edit").hide();
-  }
+
 });
 //    $("#useAllUsers-edit").prop('checked', false);
 
 $('#useSomeUsers-edit').on('change', function() {
   if (this.checked) {
     $("#useAllUsers-edit").prop('checked', false);
+    $("#counterUsers-edit").show();
   } else {
+    $("#counterUsers-edit").hide();
   }
 });
 
@@ -18,6 +16,7 @@ $('#useSomeUsers-edit').on('change', function() {
 $('#useAllUsers-edit').on('change', function() {
   if (this.checked) {
     $("#useSomeUsers-edit").prop('checked', false);
+    $("#counterUsers-edit").hide();
   } else {
   }
 });
@@ -31,6 +30,18 @@ $('#closeCheeseCounter-edit').on('change', function() {
 });
 
 $(document).on("click", ".icon-edit-counter", function(e) {
+  if ($("#closeCheeseCounter-edit").checked) {
+    $("#EndDate-edit").show();
+  } else {
+    $("#EndDate-edit").hide();
+  }
+
+  if ($("#useSomeUsers-edit").checked) {
+    $("#counterUsers-edit").show();
+  } else {
+    $("#counterUsers-edit").hide();
+  }
+
   let ID = $(this).parent().parent().data('rowId')
   let name = $(this).parent().parent().parent().children(':nth-child(1)').children(':nth-child(1)').children(':nth-child(1)').children(':nth-child(1)').text();
   let startingDate = $(this).parent().parent().parent().children(':nth-child(1)').children(':nth-child(1)').children(':nth-child(1)').children(':nth-child(2)').text().replace('(', '').replace(')', '');
@@ -38,6 +49,14 @@ $(document).on("click", ".icon-edit-counter", function(e) {
   let marketCheese = $(this).parent().parent().parent().children(':nth-child(1)').children(':nth-child(1)').children(':nth-child(4)').text()
   let spentCheese = $(this).parent().parent().parent().children(':nth-child(1)').children(':nth-child(1)').children(':nth-child(5)').text()
   let targetCheese = $(this).parent().parent().parent().children(':nth-child(1)').children(':nth-child(1)').children(':nth-child(6)').text()
+
+  let isCheckedSomeoneUsers = $(this).parent().parent().parent().children(':nth-child(1)').children(':nth-child(1)').children(':nth-child(15)').text()
+  let isCheckedUseSideUsers = $(this).parent().parent().parent().children(':nth-child(1)').children(':nth-child(1)').children(':nth-child(16)').text()
+  let isCounterEnded = $(this).parent().parent().parent().children(':nth-child(1)').children(':nth-child(1)').children(':nth-child(17)').text()
+
+  $('#useSomeUsers-edit').prop("checked", (isCheckedSomeoneUsers == 'true'));
+  $('#useAllUsers-edit').prop("checked", (isCheckedUseSideUsers == 'true'));
+  $('#closeCheeseCounter-edit').prop("checked", (isCounterEnded == 'true'));
 
   $('#edit-counter .modal-title').html("Edit Cheese Counter - " + name)
   $('#edit-counter input[name="Name"]').val(name)

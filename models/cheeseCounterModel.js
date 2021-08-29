@@ -67,6 +67,8 @@ async function updateCounter(counter) {
   let targetCheese = counter.TargetCheese;
   let status = 0;
   let endDate = "";
+  let useSideUsers = 0;
+  let useSomeUsers = 0;
   let sideUsersCheese = 0;
   let fullCheeseCount = 0;
 
@@ -79,12 +81,22 @@ async function updateCounter(counter) {
     }
   }
 
+  if (counter.UseSideUsers == 'on') {
+    useSideUsers = 1;
+  }
+
+  if (counter.UseSomeUsers == 'on') {
+    useSomeUsers = 1;
+  }
+
   return new Promise((resolve, reject) => {
-    db.run("Update CheeseCounters Set Name = '" + name + "' ,StartingDate = '" + startingDate + "' ,startingMarketCheese = '" + startingMarketCheese + "', MarketCheese ='" + marketCheese + "', SpentCheese='" + spentCheese + "', Status='"  + status  + "', EndDate='" + endDate  + "', SideUsersCheese='" + sideUsersCheese  + "', TargetCheese='" + targetCheese +  "' Where ID = '" + id + "'", (err, row) => {
+    db.run("Update CheeseCounters Set Name = '" + name + "' ,StartingDate = '" + startingDate + "' ,startingMarketCheese = '" + startingMarketCheese + "', MarketCheese ='" + marketCheese + "', SpentCheese='" + spentCheese + "', Status='"  + status  + "', EndDate='" + endDate  + "', SideUsersCheese='" + sideUsersCheese  + "', UseSideUsers = '" + useSideUsers + "', UseSomeUsers = '" + useSomeUsers + "', TargetCheese='" + targetCheese +  "' Where ID = '" + id + "'", (err, row) => {
       return resolve(row);
     });
   }).then(value => {
-    return true;
+    if (useSideUsers == 0 && useSomeUsers == 1) {
+      
+    }
   });
 }
 

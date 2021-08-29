@@ -23,7 +23,7 @@ const cheeseCounter_index = async (req, res) => {
     for (var i = 0; i < length; i++) {
       counters[i].IsCounterEnded = (counters[i].Status == 1) ? (true) : (false);
       counters[i].IsCheckedUseSideUsers = (counters[i].UseSideUsers == 1) ? (true) : (false)
-      counters[i].IsCheckedSomeoneUsers = (counters[i].UseSideUsers == 0) ? (true) : (false)
+      counters[i].IsCheckedSomeoneUsers = (counters[i].UseSomeUsers == 1) ? (true) : (false)
 
       let startingDate = counters[i].StartingDate.replace(".", "/").replace(".", "/").split("/");
       startingDate = new Date(+startingDate[2], startingDate[1] - 1, + startingDate[0]);
@@ -52,6 +52,7 @@ const cheeseCounter_index = async (req, res) => {
       counters[i].TargetCheesePercentage = Math.round((counters[i].TotalCheese / counters[i].TargetCheese * 100) * 100) / 100;
       //counters[i].FullCheeseCount = await userModel.getFullCheeseUserCount(account.ID);
       counters[i].FursCheeseRemainder = (fursCheeseSum - counters[i].EstimatedCheese < 0) ? ("+" + Math.abs(fursCheeseSum - counters[i].TotalCheese)) : (fursCheeseSum - counters[i].EstimatedCheese);
+      console.log(counters[i])
     }
   }
 

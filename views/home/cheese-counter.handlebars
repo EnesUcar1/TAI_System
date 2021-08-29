@@ -31,7 +31,25 @@
                   <span class="mb-2 text-xs">Maximum Number Cheese Accounts: <span class="text-dark ms-sm-2 font-weight-bold">{{this.FullCheeseCount}}</span></span><br>
                   <span class="mb-2 text-xs">Estimated Cheese At The Market: <span class="text-dark ms-sm-2 font-weight-bold">{{this.EstimatedCheese}}</span></span>
                   <span class="mb-2 text-xs">Remaining Cheese For Furs: <span class="text-dark ms-sm-2 font-weight-bold">{{this.FursCheeseRemainder}}</span></span>
+                  {{#if this.IsCheckedSomeoneUsers}}
+                    <span class="mb-2 text-xs" style="display:none">true</span>
+                  {{else}}
+                    <span class="mb-2 text-xs" style="display:none">false</span>
+                  {{/if}}
+
+                  {{#if this.IsCheckedUseSideUsers}}
+                    <span class="mb-2 text-xs" style="display:none">true</span>
+                  {{else}}
+                    <span class="mb-2 text-xs" style="display:none">false</span>
+                  {{/if}}
+
+                  {{#if this.IsCounterEnded}}
+                    <span class="mb-2 text-xs" style="display:none">true</span>
+                  {{else}}
+                    <span class="mb-2 text-xs" style="display:none">false</span>
+                  {{/if}}
                 </div>
+
                 <div class="ms-auto text-end">
                   <a class="btn btn-link text-dark px-3 mb-0 icon-edit-counter" data-bs-toggle="modal" data-bs-target="#edit-counter" data-toggle="tooltip" data-original-title="Edit count" href="javascript:;"><i
                       class="fas fa-pencil-alt tex dark me-2" aria-hidden="true"></i>Edit</a>
@@ -158,6 +176,15 @@
           </div>
 
           <div style="font-size:1px">eee</div>
+
+          <div class="form-group" id="counterUsers-edit">
+            <label for="CounterUsers">Side-Accounts</label>
+            <select multiple class="form-control" name="CounterUsers" style="height: 140px">
+              {{#each users}}
+                <option value={{this.ID}}>{{this.Name}}</option>
+              {{/each}}
+            </select>
+          </div>
 
           <div class="form-group" style="width:100%;" id="EndDate-edit">
             <label for="EndDate">End Date</label>
