@@ -19,7 +19,7 @@
             {{#each cheeseCounters}}
               <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg" data-row-id="{{this.ID}}">
                 <div class="d-flex flex-column">
-                  <h6 class="mb-3 text-sm"><span>{{this.Name}}</span> <span class="mb-2 text-xs"><span class="text-dark font-weight-bold ms-sm-2">({{this.StartingDate}}{{#if this.IsCounterEnded}} - {{this.EndDate}} {{/if}})</span></span></h6>
+                  <h6 class="mb-3 text-sm"><span>{{this.Name}}</span> <span class="mb-2 text-xs"><span class="text-dark font-weight-bold ms-sm-2">({{this.StartingDate}}{{#if this.IsCounterEnded}} - {{this.EndDate}}{{/if}})</span></span></h6>
                   <span class="mb-2 text-xs">Won Cheese: <span class="text-dark font-weight-bold ms-sm-2">{{this.TotalCheese}}</span></span>
                   <span style="display:none">{{this.StartingMarketCheese}}</span>
                   <span style="display:none">{{this.MarketCheese}}</span>

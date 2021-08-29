@@ -34,16 +34,18 @@ const cheeseCounter_index = async (req, res) => {
       } else if (counters[i].UseSideUsers == 0 && counters[i].Status == 0) {
         counters[i].UsersSumCheese = await counterUsersModel.getUsersSumCheese(counters[i].ID);
         counters[i].FullCheeseCount = await userModel.getFullCheeseUserCount(counters[i].ID);
-      } else if (counters[i].Status == 1) {
+      } else if (counters[i].UseSideUsers == 1 && counters[i].Status == 1) {
         counters[i].UsersSumCheese = counters[i].SideUsersCheese;
+        counters[i].FullCheeseCount = await userModel.getFullCheeseUserCount(account.ID);
       }
 
       counters[i].TotalCheese = (counters[i].MarketCheese - counters[i].StartingMarketCheese + counters[i].UsersSumCheese + counters[i].SpentCheese);
       counters[i].AverageCheese = Math.round(counters[i].TotalCheese / helperConstant.getDiffDays(startingDate) * 100) / 100;
+
       if (counters[i].Status == 1) {
         let endDate = counters[i].EndDate.replace(".", "/").replace(".", "/").split("/");
-        startingDate = new Date(+endDate[2], endDate[1] - 1, + endDate[0]);
-        Math.round(counters[i].TotalCheese / helperConstant.getDiffDays(startingDate, endDate) * 100) / 100;
+        endDate = new Date(+endDate[2], endDate[1] - 1, + endDate[0]);
+        counters[i].AverageCheese = Math.round(counters[i].TotalCheese / helperConstant.getDiffDays(startingDate, endDate) * 100) / 100;
       }
 
       counters[i].EstimatedCheese = (counters[i].MarketCheese + counters[i].UsersSumCheese);
