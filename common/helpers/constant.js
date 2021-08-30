@@ -21,6 +21,11 @@ function setUsersDateTime(users) {
   }).then(value => { return value; });
 }
 
+
+function setFurDateTime(fur) {
+  return new Date(fur).toString().split(' ')[0];
+}
+
 function getDiffDays(date, secondDate = null) {
   let date1 = new Date(date);
   let date2 = null;
@@ -40,5 +45,6 @@ module.exports = {
   createHash,
   createToken,
   setUsersDateTime,
+  setFurDateTime,
   getDiffDays
 }
