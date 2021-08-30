@@ -1,11 +1,6 @@
 $(document).ready(function() {
-  if ($("#closeCheeseCounter-edit").checked) {
-    $("#EndDate-edit").show();
-  } else {
-    $("#EndDate-edit").hide();
-  }
+
 });
-//    $("#useAllUsers-edit").prop('checked', false);
 
 $('#useSomeUsers-edit').on('change', function() {
   if (this.checked) {
