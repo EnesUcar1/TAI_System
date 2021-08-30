@@ -9,6 +9,12 @@ function getFavouriteFurs(accountID) {
   }).then(async (value) => { return value; });
 }
 
+function getPurchasedFurs(accountID) {
+  return new Promise((resolve, reject) => {
+    db.all('Select * From FavouriteFurs Where AccountID ="' + accountID + '" And Deleted = "0" And IsBought = 1', (err, row) => { return resolve(row); });
+  }).then(async (value) => { return value; });
+}
+
 function addFavouriteFur(fur) {
   let created = new Date().toLocaleString();
   let accountID = fur.AccountID;
@@ -74,6 +80,7 @@ function getSumFurCheese(accountID, priority = null) {
 
 module.exports = {
   getFavouriteFurs,
+  getPurchasedFurs,
   addFavouriteFur,
   editFavouriteFur,
   deleteFavouriteFur,

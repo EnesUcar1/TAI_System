@@ -3,7 +3,6 @@ const userModel = require('../models/userModel');
 const cheeseCounterModel = require('../models/cheeseCounterModel');
 const counterUsersModel = require('../models/counterUsersModel');
 const furModel = require('../models/furModel');
-
 const helperConstant = require('../common/helpers/constant');
 
 const cheeseCounter_index = async (req, res) => {
