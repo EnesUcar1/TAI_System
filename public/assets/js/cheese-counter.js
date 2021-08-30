@@ -1,7 +1,6 @@
 $(document).ready(function() {
 
 });
-//    $("#useAllUsers-edit").prop('checked', false);
 
 $('#useSomeUsers-edit').on('change', function() {
   if (this.checked) {
