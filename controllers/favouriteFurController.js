@@ -39,7 +39,7 @@ const fur_index = async (req, res) => {
     }
   }
 
-
+  console.log(account.Name + " favori kürklerim sayfasında!");
   res.render(__dirname + '/../views/home/favourite-furs.handlebars', {
     favouriteFurLeftSideClass: 'active',
     furs: furs,

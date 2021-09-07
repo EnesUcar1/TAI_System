@@ -5,6 +5,7 @@ const reward_index = async (req, res) => {
   if (Array.isArray(account)) {
     account = account[0]
   }
+  console.log(account.Name + " ödüllerim sayfasında!");
   res.render(__dirname + '/../views/home/reward.handlebars', { rewardLeftSideClass: 'active', pageName: "Users", account: account });
 };
 

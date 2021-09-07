@@ -56,6 +56,8 @@ const dashboard_index = async (req, res) => {
     }
   }
 
+  console.log(account.Name + " ana sayfada!");
+
   res.render(__dirname + '/../views/home/dashboard.handlebars', { SpentCheese: spentCheese, SpentFraise: spentFraise, dashboardLeftSideClass: 'active', pageName:"Dashboard", account: account, purchasedFurs: fursData  });
 };
 

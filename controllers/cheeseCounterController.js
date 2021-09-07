@@ -54,6 +54,7 @@ const cheeseCounter_index = async (req, res) => {
     }
   }
 
+  console.log(account.Name + " peynir sayacı sayfasında!");
   res.render(__dirname + '/../views/home/cheese-counter.handlebars', {
     cheeseCounterLeftSideClass: 'active',
     pageName: "Cheese Counters",

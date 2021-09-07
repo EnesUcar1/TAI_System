@@ -10,6 +10,8 @@ const user_index = async (req, res) => {
   let users = (await userModel.getUsersByAccountID(account.ID)).reverse();
   if (account.ShowUserEntries > 0)
     users = users.slice(0, account.ShowUserEntries);
+
+  console.log(account.Name + " hesaplarım sayfasında!");
   res.render(__dirname + '/../views/home/user.handlebars', { userLeftSideClass: 'active', pageName: "Users", users: users, account: account });
 };
 
