@@ -37,4 +37,4 @@ app.use('/miscellaneous', miscellaneousRoutes);
 app.use('/sign-in', signInRoutes);
 app.use('/sign-up', signUpRoutes);
 
-app.listen(config.app.port);
+app.listen(process.env.PORT || config.app.port);
